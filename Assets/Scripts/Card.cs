@@ -9,13 +9,6 @@ public class Card : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     #region Mouse Interaction
@@ -28,6 +21,12 @@ public class Card : MonoBehaviour
     public void MouseLeft()
     {
         holder.EndPreview();        
+    }
+
+    public void MouseClicked()
+    {
+        holder.UseCard(this);
+        Destroy(this.gameObject);
     }
 
     #endregion

@@ -6,6 +6,7 @@ public class CardHolder : MonoBehaviour
 {
     public GameObject cardPrefab;
     public Card previewCard;
+    public GameManager gameManager;
     Transform cardHand;
     
     // Start is called before the first frame update
@@ -26,6 +27,12 @@ public class CardHolder : MonoBehaviour
         GameObject go = Instantiate(cardPrefab,Vector3.zero,Quaternion.identity,cardHand);
         Card c = go.GetComponent<Card>();
         c.holder = this;
+    }
+
+    public void UseCard(Card card)
+    {
+        gameManager.UseCard(card);
+        EndPreview();
     }
 
     public void StartPreview(Card card)
