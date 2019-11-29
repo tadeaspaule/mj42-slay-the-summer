@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     List<CardData> discardPile = new List<CardData>();
     public CardHolder cardHolder;
     
+    #region Unity methods
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,49 @@ public class GameManager : MonoBehaviour
         }
         SetupStartDeck();
         DrawCards();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonUp(0)) {
+            targetLine.enabled = false;
+            if (usingCard != null && target != null) UseCard();
+            usingCard = null;
+            target = null;
+        }
+        if (usingCard != null) {
+            targetLine.SetPosition(1,Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
+    }
+
+    #endregion
+    
+    #region Mouse events
+
+    public void MouseDownOnCard(Card card)
+    {
+        targetLine.enabled = true;
+        usingCard = card;
+        // targetLine.SetPosition(0,card.transform.position);
+    }
+
+    public void EnteredCharacter(Character character)
+    {
+        if (!character.e.friendly) target = character;
+    }
+
+    public void LeftCharacter()
+    {
+        target = null;
+    }
+
+    #endregion
+
+    #region Card stuff
+    
+    void UseCard()
+    {
+
     }
 
     void SetupStartDeck()
@@ -67,41 +112,10 @@ public class GameManager : MonoBehaviour
         deck.RemoveAt(i);
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonUp(0)) {
-            targetLine.enabled = false;
-            if (usingCard != null && target != null) UseCard();
-            usingCard = null;
-            target = null;
-        }
-        if (usingCard != null) {
-            targetLine.SetPosition(1,Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
-    }
-
-    void UseCard()
-    {
-
-    }
-
-    public void MouseDownOnCard(Card card)
-    {
-        targetLine.enabled = true;
-        usingCard = card;
-        // targetLine.SetPosition(0,card.transform.position);
-    }
-
-    public void EnteredCharacter(Character character)
-    {
-        if (!character.e.friendly) target = character;
-    }
-
-    public void LeftCharacter()
-    {
-        target = null;
-    }
-
+    #endregion
+    
+    #region Combat
+    
     float space = 2.4f;
 
     public void SpawnEnemies()
@@ -120,4 +134,6 @@ public class GameManager : MonoBehaviour
             enemies[2].transform.position += new Vector3(space,0f,0f);
         }
     }
+
+    #endregion
 }
