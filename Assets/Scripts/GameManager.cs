@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public UImanager uImanager;
+
     public GameObject characterPrefab;
     public Transform enemyHolder;
     public LineRenderer targetLine;
@@ -17,9 +19,9 @@ public class GameManager : MonoBehaviour
     Dictionary<string,CardData> cards = new Dictionary<string, CardData>();
 
     int handSize = 4;
-    List<CardData> deck = new List<CardData>();
-    List<CardData> hand = new List<CardData>();
-    List<CardData> discardPile = new List<CardData>();
+    public List<CardData> deck = new List<CardData>();
+    public List<CardData> hand = new List<CardData>();
+    public List<CardData> discardPile = new List<CardData>();
     public CardHolder cardHolder;
     
     #region Unity methods
@@ -102,7 +104,8 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < over; i++) DrawRandomCard();
         }
         else for (int i = 0; i < handSize; i++) DrawRandomCard();
-        cardHolder.UpdateHand(hand);
+        cardHolder.UpdateHand();
+        uImanager.UpdateUI();
     }
 
     void DrawRandomCard()

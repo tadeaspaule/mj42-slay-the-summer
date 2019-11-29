@@ -21,10 +21,10 @@ public class CardHolder : MonoBehaviour
         
     }
 
-    public void UpdateHand(List<CardData> hand)
+    public void UpdateHand()
     {
         foreach (Transform child in transform.GetChild(0)) Destroy(child.gameObject);
-        foreach (CardData cd in hand) AddCard(cd);
+        foreach (CardData cd in gameManager.hand) AddCard(cd);
     }
 
     void AddCard(CardData cd)
