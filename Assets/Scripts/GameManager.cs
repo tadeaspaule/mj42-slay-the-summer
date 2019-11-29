@@ -23,12 +23,17 @@ public class GameManager : MonoBehaviour
     public List<CardData> hand = new List<CardData>();
     public List<CardData> discardPile = new List<CardData>();
     public CardHolder cardHolder;
+
+    public bool inCombat = false;
+
+    public Map map;
     
     #region Unity methods
     
     // Start is called before the first frame update
     void Start()
     {
+        inCombat = false;
         player = new Entity();
         player.friendly = true;
         playerChar.e = player;
@@ -39,6 +44,7 @@ public class GameManager : MonoBehaviour
         }
         SetupStartDeck();
         DrawCards();
+        map.SetupMap();
     }
 
     void Update()
@@ -81,7 +87,9 @@ public class GameManager : MonoBehaviour
     
     void UseCard()
     {
-
+        discardPile.Add(usingCard.cd);
+        Destroy(usingCard.gameObject);
+        uImanager.UpdateUI();
     }
 
     void SetupStartDeck()
@@ -132,10 +140,10 @@ public class GameManager : MonoBehaviour
     
     float space = 2.4f;
 
-    public void SpawnEnemies()
+    public void SpawnEnemies(List<Entity> enemyEntities)
     {
         foreach (Transform child in enemyHolder) Destroy(child.gameObject);
-        int n = Random.Range(1,4);
+        int n = enemyEntities.Count;
         List<GameObject> enemies = new List<GameObject>();
         for (int i = 0; i < n; i++) enemies.Add(Instantiate(characterPrefab,Vector3.zero,Quaternion.identity,enemyHolder));
         foreach (GameObject go in enemies) go.transform.localPosition = Vector3.zero;
@@ -146,6 +154,9 @@ public class GameManager : MonoBehaviour
         else if (n == 3) {
             enemies[0].transform.position -= new Vector3(space,0f,0f);
             enemies[2].transform.position += new Vector3(space,0f,0f);
+        }
+        for (int i = 0; i < enemyEntities.Count; i++) {
+            enemies[i].GetComponent<Character>().e = enemyEntities[i];
         }
     }
 

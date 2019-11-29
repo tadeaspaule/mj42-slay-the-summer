@@ -9,11 +9,17 @@ public class UImanager : MonoBehaviour
     public TextMeshProUGUI resourceText;
     public TextMeshProUGUI deckText;
     public TextMeshProUGUI discardText;
-    
+
+    public GameObject map;    
     
     public void UpdateUI()
     {
         deckText.text = gameManager.deck.Count.ToString();
         discardText.text = gameManager.discardPile.Count.ToString();
+    }
+
+    public void ToggleMap()
+    {
+        map.SetActive(!map.activeInHierarchy);
     }
 }
