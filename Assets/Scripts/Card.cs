@@ -23,10 +23,15 @@ public class Card : MonoBehaviour
         holder.EndPreview();        
     }
 
+    public void MouseDown()
+    {
+        holder.MouseDownOnCard(this);
+    }
+
     public void MouseClicked()
     {
-        holder.UseCard(this);
-        Destroy(this.gameObject);
+        // holder.UseCard(this);
+        // Destroy(this.gameObject);
     }
 
     #endregion

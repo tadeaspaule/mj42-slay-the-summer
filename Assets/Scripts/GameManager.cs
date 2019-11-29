@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public GameObject characterPrefab;
     public Transform enemyHolder;
+    public LineRenderer targetLine;
+
+    Card usingCard;
+    Character target;
     
     // Start is called before the first frame update
     void Start()
@@ -13,9 +17,40 @@ public class GameManager : MonoBehaviour
         
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonUp(0)) {
+            targetLine.enabled = false;
+            if (usingCard != null && target != null) Debug.Log("use card");
+            else Debug.Log("up without card");
+            usingCard = null;
+            target = null;
+        }
+        if (usingCard != null) {
+            targetLine.SetPosition(1,Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
+    }
+
     public void UseCard(Card card)
     {
 
+    }
+
+    public void MouseDownOnCard(Card card)
+    {
+        targetLine.enabled = true;
+        usingCard = card;
+        // targetLine.SetPosition(0,card.transform.position);
+    }
+
+    public void EnteredCharacter(Character character)
+    {
+        target = character;
+    }
+
+    public void LeftCharacter()
+    {
+        target = null;
     }
 
     float space = 2.4f;

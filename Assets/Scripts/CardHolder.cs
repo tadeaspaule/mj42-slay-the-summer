@@ -29,10 +29,9 @@ public class CardHolder : MonoBehaviour
         c.holder = this;
     }
 
-    public void UseCard(Card card)
+    public void MouseDownOnCard(Card card)
     {
-        gameManager.UseCard(card);
-        EndPreview();
+        gameManager.MouseDownOnCard(card);
     }
 
     public void StartPreview(Card card)
