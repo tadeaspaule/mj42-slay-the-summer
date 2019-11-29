@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public GameObject characterPrefab;
     public Transform enemyHolder;
     public LineRenderer targetLine;
+    public Character playerChar;
+    public Entity player;
 
     Card usingCard;
     Character target;
@@ -14,7 +16,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = new Entity();
+        player.friendly = true;
+        playerChar.e = player;
     }
 
     void Update()
