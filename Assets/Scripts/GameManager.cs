@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0)) {
             targetLine.enabled = false;
-            if (usingCard != null && target != null) Debug.Log("use card");
-            else Debug.Log("up without card");
+            if (usingCard != null && target != null) UseCard();
             usingCard = null;
             target = null;
         }
@@ -31,7 +30,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UseCard(Card card)
+    void UseCard()
     {
 
     }
@@ -45,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     public void EnteredCharacter(Character character)
     {
-        target = character;
+        if (!character.e.friendly) target = character;
     }
 
     public void LeftCharacter()

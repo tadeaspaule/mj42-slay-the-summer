@@ -5,6 +5,7 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     public CardHolder holder;
+    public CardData cd;
     
     // Start is called before the first frame update
     void Start()

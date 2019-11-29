@@ -5,6 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     GameManager gameManager;
+    public Entity e;
     
     // Start is called before the first frame update
     void Start()
