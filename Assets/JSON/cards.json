@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Draw cards",
+        "cardDraw": 2
+    },
+    {
+        "name": "Attack",
+        "damageTarget": 4
+    },
+    {
+        "name": "Defend",
+        "armorSelf": 3
+    }
+]

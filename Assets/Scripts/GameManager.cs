@@ -12,6 +12,15 @@ public class GameManager : MonoBehaviour
 
     Card usingCard;
     Character target;
+
+    public TextAsset cardsJson;
+    Dictionary<string,CardData> cards = new Dictionary<string, CardData>();
+
+    int handSize = 4;
+    List<CardData> deck = new List<CardData>();
+    List<CardData> hand = new List<CardData>();
+    List<CardData> discardPile = new List<CardData>();
+    public CardHolder cardHolder;
     
     // Start is called before the first frame update
     void Start()
@@ -19,6 +28,43 @@ public class GameManager : MonoBehaviour
         player = new Entity();
         player.friendly = true;
         playerChar.e = player;
+
+        List<CardData> allCards = Helper.readJsonArray<CardData>(cardsJson.ToString());
+        foreach (CardData cd in allCards) {
+            cards.Add(cd.name,cd);
+        }
+        SetupStartDeck();
+        DrawCards();
+    }
+
+    void SetupStartDeck()
+    {
+        deck.Clear();
+        for (int i = 0; i < 5; i++) deck.Add(cards["Attack"]);
+        for (int i = 0; i < 5; i++) deck.Add(cards["Defend"]);
+        for (int i = 0; i < 2; i++) deck.Add(cards["Draw cards"]);
+    }
+
+    void DrawCards()
+    {
+        discardPile.AddRange(hand);
+        hand.Clear();
+        if (handSize > deck.Count) {
+            int over = handSize - deck.Count;
+            hand.AddRange(deck);
+            deck.AddRange(discardPile);
+            discardPile.Clear();
+            for (int i = 0; i < over; i++) DrawRandomCard();
+        }
+        else for (int i = 0; i < handSize; i++) DrawRandomCard();
+        cardHolder.UpdateHand(hand);
+    }
+
+    void DrawRandomCard()
+    {
+        int i = Random.Range(0,deck.Count);
+        hand.Add(deck[i]);
+        deck.RemoveAt(i);
     }
 
     void Update()

@@ -12,8 +12,7 @@ public class CardHolder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cardHand = transform.GetChild(0);
-        for (int i = 0; i < 3; i++) AddCard();
+        
     }
 
     // Update is called once per frame
@@ -22,11 +21,18 @@ public class CardHolder : MonoBehaviour
         
     }
 
-    public void AddCard()
+    public void UpdateHand(List<CardData> hand)
     {
-        GameObject go = Instantiate(cardPrefab,Vector3.zero,Quaternion.identity,cardHand);
+        foreach (Transform child in transform.GetChild(0)) Destroy(child.gameObject);
+        foreach (CardData cd in hand) AddCard(cd);
+    }
+
+    void AddCard(CardData cd)
+    {
+        GameObject go = Instantiate(cardPrefab,Vector3.zero,Quaternion.identity,transform.GetChild(0));
         Card c = go.GetComponent<Card>();
         c.holder = this;
+        c.UpdateInfo(cd);
     }
 
     public void MouseDownOnCard(Card card)
@@ -37,6 +43,7 @@ public class CardHolder : MonoBehaviour
     public void StartPreview(Card card)
     {
         previewCard.gameObject.SetActive(true);
+        previewCard.UpdateInfo(card.cd);
     }
 
     public void EndPreview()

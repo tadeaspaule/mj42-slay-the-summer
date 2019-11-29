@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        e = new Entity();
     }
 
     // Update is called once per frame

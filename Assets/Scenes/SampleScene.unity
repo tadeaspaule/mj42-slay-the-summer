@@ -227,6 +227,9 @@ MonoBehaviour:
     type: 3}
   enemyHolder: {fileID: 821186465}
   targetLine: {fileID: 1240317927}
+  playerChar: {fileID: 634729673}
+  cardsJson: {fileID: 4900000, guid: 8c3b543d2d92a8c4bbff582105af1380, type: 3}
+  cardHolder: {fileID: 263927496}
 --- !u!4 &30651182
 Transform:
   m_ObjectHideFlags: 0
@@ -799,6 +802,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 531413024}
   m_CullTransparentMesh: 0
+--- !u!114 &634729673 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4497124298400735556, guid: c01aeafb3f9549c4c86289113e7c6943,
+    type: 3}
+  m_PrefabInstance: {fileID: 9186558059733506960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5583f4bcae2710e4da4c7bf829b91d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &644196938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,7 +1678,7 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: -4, z: 0}
+  - {x: 0, y: -3, z: 0}
   - {x: 0, y: 1, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -2463,12 +2478,12 @@ PrefabInstance:
     - target: {fileID: 936946910677056735, guid: 647fce3d7fb7edd479d456e36765b335,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 936946910677056735, guid: 647fce3d7fb7edd479d456e36765b335,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 450
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 936946910677056735, guid: 647fce3d7fb7edd479d456e36765b335,
         type: 3}
@@ -2499,6 +2514,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 936946910677056735, guid: 647fce3d7fb7edd479d456e36765b335,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 936946910677056735, guid: 647fce3d7fb7edd479d456e36765b335,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1865073027136472535, guid: 647fce3d7fb7edd479d456e36765b335, type: 3}
