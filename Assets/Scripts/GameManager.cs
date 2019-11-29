@@ -115,6 +115,17 @@ public class GameManager : MonoBehaviour
     #endregion
     
     #region Combat
+
+    public void ClickedEndTurn()
+    {
+        EnemyActs();
+        DrawCards();
+    }
+
+    void EnemyActs()
+    {
+        Debug.Log("AI did something");
+    }
     
     float space = 2.4f;
 
