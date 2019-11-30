@@ -7,6 +7,7 @@ public class Card : MonoBehaviour
 {
     public CardHolder holder;
     public CardData cd;
+    bool mouseActive;
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI costText;
@@ -19,6 +20,12 @@ public class Card : MonoBehaviour
 
     public void UpdateInfo(CardData cd)
     {
+        UpdateInfo(cd,true);
+    }
+
+    public void UpdateInfo(CardData cd, bool mouseActive)
+    {
+        this.mouseActive = mouseActive;
         this.cd = cd;
         nameText.text = cd.name;
         costText.text = cd.cost.ToString();
@@ -29,16 +36,19 @@ public class Card : MonoBehaviour
 
     public void MouseEntered()
     {
+        if (!mouseActive) return;
         holder.StartPreview(this);
     }
 
     public void MouseLeft()
     {
+        if (!mouseActive) return;
         holder.EndPreview();        
     }
 
     public void MouseDown()
     {
+        if (!mouseActive) return;
         holder.MouseDownOnCard(this);
     }
 

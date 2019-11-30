@@ -16,6 +16,48 @@ public class UImanager : MonoBehaviour
     public GameObject endOfGameScreen;
     public TextMeshProUGUI endOfGameTitle;
     public TextMeshProUGUI gameOverStats;
+
+    public GameObject cardPrefab;
+    public GameObject cardShowcasOuter;
+    public Transform cardShowcaseHolder;
+
+    void OpenCardShowcase(List<CardData> cards)
+    {
+        foreach (Transform child in cardShowcaseHolder) Destroy(child.gameObject);
+        foreach (CardData cd in cards) {
+            GameObject go = Instantiate(cardPrefab,Vector3.zero,Quaternion.identity,cardShowcaseHolder);
+            go.GetComponent<Card>().UpdateInfo(cd,false);
+        }
+    }
+
+    public void ToggleDeck()
+    {
+        if (gameManager.deck.Count == 0) return;
+        bool prevActive = cardShowcasOuter.activeInHierarchy;
+        cardShowcasOuter.SetActive(!prevActive);
+        if (!prevActive) OpenCardShowcase(gameManager.deck);
+    }
+
+    public void ToggleDiscard()
+    {
+        if (gameManager.discardPile.Count == 0) return;
+        bool prevActive = cardShowcasOuter.activeInHierarchy;
+        cardShowcasOuter.SetActive(!prevActive);
+        if (!prevActive) OpenCardShowcase(gameManager.discardPile);
+    }
+
+    public void ToggleAll()
+    {
+        bool prevActive = cardShowcasOuter.activeInHierarchy;
+        cardShowcasOuter.SetActive(!prevActive);
+        if (!prevActive) {
+            List<CardData> all = new List<CardData>();
+            all.AddRange(gameManager.hand);
+            all.AddRange(gameManager.deck);
+            all.AddRange(gameManager.discardPile);
+            OpenCardShowcase(all);
+        }
+    }
     
     public void UpdateUI()
     {
