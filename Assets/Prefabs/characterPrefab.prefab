@@ -181,7 +181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.06, y: 0.49}
+  m_AnchoredPosition: {x: 0.060001373, y: 0.49000168}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8028405433162788139
@@ -656,7 +656,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c2a0dfcbeabc927488bb7af8a0010f16, type: 3}
+  m_Sprite: {fileID: 978942612559604503, guid: fb088cf9f59343743894c3bbc61b1a65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -679,6 +679,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5583f4bcae2710e4da4c7bf829b91d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  uImanager: {fileID: 0}
+  healthText: {fileID: 9186558060518081833}
+  moveIndicator: {fileID: 1687312280461555217}
+  armorText: {fileID: 3640295922369621136}
+  armorHolder: {fileID: 3582660068202052168}
 --- !u!61 &1640353891386175710
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -689,21 +695,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1.7777778}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 3}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 3.5555556, y: 3.5555556}
     newSize: {x: 2, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 3}
+  m_Size: {x: 3.5555556, y: 3.5555556}
   m_EdgeRadius: 0
 --- !u!1 &9186558060518081831
 GameObject:
@@ -717,7 +723,7 @@ GameObject:
   - component: {fileID: 9186558060518081834}
   - component: {fileID: 9186558060518081833}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -739,7 +745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.6}
+  m_AnchoredPosition: {x: 0, y: 0.5999985}
   m_SizeDelta: {x: 0, y: 0.29999995}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &9186558060518081834
@@ -899,8 +905,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3, y: 5}
+  m_AnchoredPosition: {x: 0, y: 1}
+  m_SizeDelta: {x: 3, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &9186558061334298955
 Canvas:

@@ -1,17 +1,28 @@
 [
     {
-        "name": "Draw cards",
+        "name": "Snowball Stockpile",
         "cardDraw": 2,
         "cost": 1
     },
     {
-        "name": "Attack",
+        "name": "Ice Shuriken",
         "damageTarget": 40,
         "cost": 1
     },
     {
-        "name": "Defend",
+        "name": "Carrot Snack",
         "armorSelf": 3,
         "cost": 1
+    },
+    {
+        "name": "Igloo Fortress",
+        "armorSelf": 7,
+        "cost": 2
+    },
+    {
+        "name": "Cozy Coffee",
+        "armorSelf": 4,
+        "cardDraw": 1,
+        "cost": 2
     }
 ]

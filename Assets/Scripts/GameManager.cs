@@ -134,9 +134,9 @@ public class GameManager : MonoBehaviour
         deck.Clear();
         discardPile.Clear();
         hand.Clear();
-        for (int i = 0; i < 5; i++) deck.Add(cards["Attack"]);
-        for (int i = 0; i < 5; i++) deck.Add(cards["Defend"]);
-        for (int i = 0; i < 2; i++) deck.Add(cards["Draw cards"]);
+        for (int i = 0; i < 5; i++) deck.Add(cards["Ice Shuriken"]);
+        for (int i = 0; i < 5; i++) deck.Add(cards["Carrot Snack"]);
+        for (int i = 0; i < 2; i++) deck.Add(cards["Snowball Stockpile"]);
     }
 
     void StartPlayerTurn()
