@@ -22,6 +22,7 @@ public class Card : MonoBehaviour
         this.cd = cd;
         nameText.text = cd.name;
         costText.text = cd.cost.ToString();
+        descriptionText.text = cd.GetCardText();
     }
 
     #region Mouse Interaction
