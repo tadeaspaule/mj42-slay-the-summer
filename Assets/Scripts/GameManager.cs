@@ -52,16 +52,12 @@ public class GameManager : MonoBehaviour
         player.friendly = true;
         playerChar.e = player;
         SetupStartDeck();
-        StartPlayerTurn();
         map.SetupMap();
     }
 
     void Update()
     {
         if (Input.GetMouseButtonUp(0)) {
-            Debug.Log($"up");
-            Debug.Log(usingCard);
-            Debug.Log(target);
             targetLine.enabled = false;
             if (usingCard != null && target != null) UseCard();
         }
@@ -211,7 +207,12 @@ public class GameManager : MonoBehaviour
         int n = enemyEntities.Count;
         List<GameObject> enemies = new List<GameObject>();
         for (int i = 0; i < n; i++) enemies.Add(Instantiate(characterPrefab,Vector3.zero,Quaternion.identity,enemyHolder));
-        foreach (GameObject go in enemies) go.transform.localPosition = Vector3.zero;
+        foreach (GameObject go in enemies) {
+            go.transform.localPosition = Vector3.zero;
+            Character c = go.GetComponent<Character>();
+            c.gameManager = this;
+            c.uImanager = uImanager;
+        }
         if (n == 2) {
             enemies[0].transform.position -= new Vector3(space*0.5f,0f,0f);
             enemies[1].transform.position += new Vector3(space*0.5f,0f,0f);
@@ -238,6 +239,7 @@ public class GameManager : MonoBehaviour
         cardHolder.UpdateHand();
         uImanager.StartCombat();
         uImanager.UpdateUI();
+        StartPlayerTurn();
     }
 
     public void EndCombat()

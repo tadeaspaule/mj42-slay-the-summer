@@ -27,7 +27,6 @@ public class Map : MonoBehaviour
             List<GameObject> gos = new List<GameObject>();
             for (int ii = 0; ii < n; ii++) gos.Add(Instantiate(mapNodePrefab,Vector3.zero,Quaternion.identity,transform));
             float y = -45 - 205*i + 295f;
-            Debug.Log(y);
             if (n == 1) gos[0].transform.localPosition = new Vector3(0f,y,0f);
             else if (n == 2) {
                 gos[0].transform.localPosition = new Vector3(-150f,y,0f);

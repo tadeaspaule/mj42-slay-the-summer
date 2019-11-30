@@ -6,26 +6,27 @@ using TMPro;
 
 public class Character : MonoBehaviour
 {
-    GameManager gameManager;
+    public GameManager gameManager;
+    public UImanager uImanager;
     public Entity e;
 
-    TextMeshProUGUI healthText;
-    Image moveIndicator;
-    TextMeshProUGUI armorText;
-    GameObject armorHolder;
+    public TextMeshProUGUI healthText;
+    public Image moveIndicator;
+    public TextMeshProUGUI armorText;
+    public GameObject armorHolder;
 
-    bool attacking;
+    int nextStep = -1;
+    const int ATTACK = 0;
+    const int ARMOR = 1;
+    const int DEBUFF_ATTACK = 2;
+    const int DEBUFF_ARMOR = 3;
     int nextAttack = 3;
     int nextArmor = 3;
     
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        healthText = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        moveIndicator = transform.GetChild(0).GetChild(1).GetComponent<Image>();
-        armorText = transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
-        armorHolder = transform.GetChild(0).GetChild(3).gameObject;
+        
     }
 
     void Update()
@@ -49,15 +50,20 @@ public class Character : MonoBehaviour
 
     public void DecideMove()
     {
-        attacking = Random.Range(0,3) < 2;
-        string s = attacking ? "attackIcon" : "shieldIcon";
-        moveIndicator.sprite = Resources.Load<Sprite>($"Icons/{s}");
+        nextStep = Random.Range(0,2);
+        if (nextStep == ATTACK) moveIndicator.sprite = uImanager.attackIcon;
+        else if (nextStep == ARMOR) moveIndicator.sprite = uImanager.armorIcon;
+        else if (nextStep == DEBUFF_ATTACK) moveIndicator.sprite = uImanager.attackDebuffIcon;
+        else if (nextStep == DEBUFF_ARMOR) moveIndicator.sprite = uImanager.armorDebuffIcon;
+        else Debug.Log($"no change {nextStep}");
     }
 
     public void ExecuteMove()
     {
-        if (attacking) gameManager.player.TakeDamage(nextAttack);
-        else e.armor += nextArmor;
+        if (nextStep == ATTACK) gameManager.player.TakeDamage(nextAttack);
+        else if (nextStep == ARMOR) e.armor += nextArmor;
+        else if (nextStep == DEBUFF_ATTACK) gameManager.player.TakeDamage(nextAttack);
+        else if (nextStep == DEBUFF_ARMOR) gameManager.player.TakeDamage(nextAttack);
     }
 
     #endregion

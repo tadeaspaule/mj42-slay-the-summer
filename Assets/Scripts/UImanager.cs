@@ -23,6 +23,11 @@ public class UImanager : MonoBehaviour
     public GameObject cardShowcasOuter;
     public Transform cardShowcaseHolder;
 
+    public Sprite attackIcon;
+    public Sprite armorIcon;
+    public Sprite attackDebuffIcon;
+    public Sprite armorDebuffIcon;
+
     void OpenCardShowcase(List<CardData> cards)
     {
         foreach (Transform child in cardShowcaseHolder) Destroy(child.gameObject);
