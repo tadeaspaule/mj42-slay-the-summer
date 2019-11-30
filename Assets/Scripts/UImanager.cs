@@ -10,7 +10,8 @@ public class UImanager : MonoBehaviour
     public TextMeshProUGUI deckText;
     public TextMeshProUGUI discardText;
 
-    public GameObject map;    
+    public GameObject map;
+    public GameObject combatUI;
     
     public void UpdateUI()
     {
@@ -21,5 +22,15 @@ public class UImanager : MonoBehaviour
     public void ToggleMap()
     {
         map.SetActive(!map.activeInHierarchy);
+    }
+
+    public void StartCombat()
+    {
+        combatUI.SetActive(true);
+    }
+
+    public void EndCombat()
+    {
+        combatUI.SetActive(false);
     }
 }

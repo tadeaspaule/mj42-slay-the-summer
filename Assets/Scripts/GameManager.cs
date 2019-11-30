@@ -160,5 +160,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StartCombat(MapNode node)
+    {
+        SpawnEnemies(node.enemies);
+        Debug.Log($"{node.enemies.Count} cc");
+        inCombat = true;
+        uImanager.StartCombat();
+    }
+
     #endregion
 }

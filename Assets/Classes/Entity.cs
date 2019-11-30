@@ -3,10 +3,10 @@
 public class Entity
 {
     public bool friendly;
-    public int health;
-    public int maxHealth;
-    public string name;
-    public int armor;
+    public int health = 10;
+    public int maxHealth = 10;
+    public string name = "enemy";
+    public int armor = 0;
 
     public void DealDamage(int amount)
     {

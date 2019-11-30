@@ -37,6 +37,8 @@ public class Map : MonoBehaviour
                 MapNode mn = go.GetComponent<MapNode>();
                 nodes.Add(mn);
                 mn.SetupConnections(nodes.GetRange(from,lastN));
+                int enem = Random.Range(1,4);
+                for (int iii = 0; iii < enem; iii++) mn.enemies.Add(new Entity());
             }
             from += lastN;
             lastN = n;
@@ -51,6 +53,7 @@ public class Map : MonoBehaviour
         currentNode = node;
         currentNode.EnableCurrentIndicator();
         Debug.Log($"Moved to {node.gameObject.name}");
-        // gameManager.SpawnEnemies(node.enemies);
+        gameManager.StartCombat(node);
+        this.gameObject.SetActive(false);
     }
 }
