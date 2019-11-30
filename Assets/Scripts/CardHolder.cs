@@ -27,7 +27,7 @@ public class CardHolder : MonoBehaviour
         foreach (CardData cd in gameManager.hand) AddCard(cd);
     }
 
-    void AddCard(CardData cd)
+    public void AddCard(CardData cd)
     {
         GameObject go = Instantiate(cardPrefab,Vector3.zero,Quaternion.identity,transform.GetChild(0));
         Card c = go.GetComponent<Card>();

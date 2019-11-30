@@ -17,6 +17,7 @@ public class UImanager : MonoBehaviour
     {
         deckText.text = gameManager.deck.Count.ToString();
         discardText.text = gameManager.discardPile.Count.ToString();
+        resourceText.text = $"{gameManager.mana}/{gameManager.maxMana}";
     }
 
     public void ToggleMap()

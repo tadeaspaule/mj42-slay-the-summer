@@ -8,7 +8,7 @@ public class Entity
     public string name = "enemy";
     public int armor = 0;
 
-    public void DealDamage(int amount)
+    public void TakeDamage(int amount)
     {
         if (armor > 0) {
             armor -= amount;

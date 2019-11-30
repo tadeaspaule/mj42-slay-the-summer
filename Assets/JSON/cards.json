@@ -1,14 +1,17 @@
 [
     {
         "name": "Draw cards",
-        "cardDraw": 2
+        "cardDraw": 2,
+        "cost": 1
     },
     {
         "name": "Attack",
-        "damageTarget": 4
+        "damageTarget": 4,
+        "cost": 1
     },
     {
         "name": "Defend",
-        "armorSelf": 3
+        "armorSelf": 3,
+        "cost": 1
     }
 ]

@@ -1,4 +1,4 @@
-
+using System.Collections.Generic;
 
 public class CardData
 {
@@ -19,5 +19,18 @@ public class CardData
         if (armorSelf > 0) txt += $"Gain {armorSelf} armor.";
         if (cardDraw > 0) txt += $"Draw {cardDraw} cards.";
         return txt;
+    }
+
+    public void UseCard(Entity player, Character target, List<Entity> allEnemies)
+    {
+        player.TakeDamage(damageSelf);
+        target.e.TakeDamage(damageTarget);
+        foreach (Entity e in allEnemies) e.TakeDamage(damageAll);
+        player.armor += armorSelf;
+    }
+
+    public bool IsSelfCard()
+    {
+        return damageTarget == 0 && damageAll == 0;
     }
 }

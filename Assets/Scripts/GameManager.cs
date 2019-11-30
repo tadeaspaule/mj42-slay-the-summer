@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public LineRenderer targetLine;
     public Character playerChar;
     public Entity player;
+    public int mana = 3;
+    public int maxMana = 3;
 
     Card usingCard;
     Character target;
@@ -43,17 +45,18 @@ public class GameManager : MonoBehaviour
             cards.Add(cd.name,cd);
         }
         SetupStartDeck();
-        DrawCards();
+        StartPlayerTurn();
         map.SetupMap();
     }
 
     void Update()
     {
         if (Input.GetMouseButtonUp(0)) {
+            Debug.Log($"up");
+            Debug.Log(usingCard);
+            Debug.Log(target);
             targetLine.enabled = false;
             if (usingCard != null && target != null) UseCard();
-            usingCard = null;
-            target = null;
         }
         if (usingCard != null) {
             targetLine.SetPosition(1,Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -66,6 +69,7 @@ public class GameManager : MonoBehaviour
 
     public void MouseDownOnCard(Card card)
     {
+        if (card.cd.cost > mana) return;
         targetLine.enabled = true;
         usingCard = card;
         // targetLine.SetPosition(0,card.transform.position);
@@ -73,7 +77,8 @@ public class GameManager : MonoBehaviour
 
     public void EnteredCharacter(Character character)
     {
-        if (!character.e.friendly) target = character;
+        if (usingCard == null) return;
+        if (character.e.friendly == usingCard.cd.IsSelfCard()) target = character;
     }
 
     public void LeftCharacter()
@@ -87,9 +92,41 @@ public class GameManager : MonoBehaviour
     
     void UseCard()
     {
+        StartCoroutine(UseCardDelayed(0.5f));
+    }
+
+    IEnumerator UseCardDelayed(float delay)
+    {
+        usingCard.cd.UseCard(player,target,map.currentNode.enemies);
+        mana -= usingCard.cd.cost;
+        yield return new WaitForSeconds(delay);
         discardPile.Add(usingCard.cd);
+        for (int i = 0; i < usingCard.cd.cardDraw; i++) {
+            cardHolder.AddCard(DrawRandomCard());
+        }
         Destroy(usingCard.gameObject);
+        usingCard = null;
+        target = null;
         uImanager.UpdateUI();
+        CheckDeaths();
+    }
+
+    void CheckDeaths()
+    {
+        if (player.health == 0) {
+            GameOver();
+            return;
+        }
+        int count = enemyHolder.childCount;
+        foreach (Transform enemyChar in enemyHolder) {
+            Character c = enemyChar.GetComponent<Character>();
+            if (c.e.health == 0) {
+                Destroy(enemyChar.gameObject);
+                map.currentNode.enemies.Remove(c.e);
+                count --;
+            }
+        }
+        if (count == 0) EndCombat();
     }
 
     void SetupStartDeck()
@@ -100,42 +137,51 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 2; i++) deck.Add(cards["Draw cards"]);
     }
 
-    void DrawCards()
+    void StartPlayerTurn()
     {
+        // draws cards
         discardPile.AddRange(hand);
         hand.Clear();
-        if (handSize > deck.Count) {
-            int over = handSize - deck.Count;
-            hand.AddRange(deck);
-            deck.AddRange(discardPile);
-            discardPile.Clear();
-            for (int i = 0; i < over; i++) DrawRandomCard();
-        }
-        else for (int i = 0; i < handSize; i++) DrawRandomCard();
+        for (int i = 0; i < handSize; i++) DrawRandomCard();
+        // replenishes mana
+        mana = maxMana;
+        // update UI        
         cardHolder.UpdateHand();
         uImanager.UpdateUI();
     }
 
-    void DrawRandomCard()
+    CardData DrawRandomCard()
     {
+        if (deck.Count == 0) {
+            deck.AddRange(discardPile);
+            discardPile.Clear();
+        }
         int i = Random.Range(0,deck.Count);
-        hand.Add(deck[i]);
+        CardData cd = deck[i];
+        hand.Add(cd);
         deck.RemoveAt(i);
+        return cd;
     }
 
     #endregion
     
     #region Combat
 
+    void GameOver()
+    {
+        Debug.Log("game over");
+    }
+
     public void ClickedEndTurn()
     {
         EnemyActs();
-        DrawCards();
+        StartPlayerTurn();
     }
 
     void EnemyActs()
     {
         Debug.Log("AI did something");
+        CheckDeaths();
     }
     
     float space = 2.4f;
@@ -163,9 +209,15 @@ public class GameManager : MonoBehaviour
     public void StartCombat(MapNode node)
     {
         SpawnEnemies(node.enemies);
-        Debug.Log($"{node.enemies.Count} cc");
         inCombat = true;
         uImanager.StartCombat();
+        mana = maxMana;
+    }
+
+    public void EndCombat()
+    {
+        inCombat = false;
+        uImanager.EndCombat();
     }
 
     #endregion
