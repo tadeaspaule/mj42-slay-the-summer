@@ -6,7 +6,7 @@
     },
     {
         "name": "Attack",
-        "damageTarget": 4,
+        "damageTarget": 40,
         "cost": 1
     },
     {

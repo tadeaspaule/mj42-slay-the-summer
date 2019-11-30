@@ -131,7 +131,10 @@ public class GameManager : MonoBehaviour
                 count --;
             }
         }
-        if (count == 0) EndCombat();
+        if (count == 0) {
+            EndCombat();
+            if (map.currentNode.connections.Count == 0) GameWon();
+        }
     }
 
     void SetupStartDeck()
@@ -183,7 +186,7 @@ public class GameManager : MonoBehaviour
     void EnemyActs()
     {
         Debug.Log("AI did something");
-        player.TakeDamage(3);
+        // player.TakeDamage(3);
         CheckDeaths();
     }
     
@@ -213,8 +216,15 @@ public class GameManager : MonoBehaviour
     {
         SpawnEnemies(node.enemies);
         inCombat = true;
-        uImanager.StartCombat();
         mana = maxMana;
+        deck.AddRange(discardPile);
+        deck.AddRange(hand);
+        discardPile.Clear();
+        hand.Clear();
+        for (int i = 0; i < handSize; i++) DrawRandomCard();
+        cardHolder.UpdateHand();
+        uImanager.StartCombat();
+        uImanager.UpdateUI();
     }
 
     public void EndCombat()
@@ -225,11 +235,16 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region Game over
+    #region End of game
 
     void GameOver()
     {
         uImanager.GameOver();
+    }
+    
+    void GameWon()
+    {
+        uImanager.GameWon();
     }
 
     public void ClickedNewGame()

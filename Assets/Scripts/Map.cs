@@ -12,6 +12,11 @@ public class Map : MonoBehaviour
     {
         List<MapNode> nodes = new List<MapNode>();
         MapNode final = transform.GetChild(0).GetComponent<MapNode>();
+        final.enemies.Clear();
+        Entity finalBoss = new Entity();
+        finalBoss.health = 30;
+        finalBoss.maxHealth = 30;
+        final.enemies.Add(finalBoss);
         foreach (Transform child in transform)
             if (!child.GetComponent<MapNode>().Equals(final)) Destroy(child.gameObject);
         nodes.Add(final);

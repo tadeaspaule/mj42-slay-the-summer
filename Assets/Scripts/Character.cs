@@ -18,7 +18,6 @@ public class Character : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        if (!gameObject.name.Equals("player")) e = new Entity();
         healthText = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         moveIndicator = transform.GetChild(0).GetChild(1).GetComponent<Image>();
         armorText = transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();

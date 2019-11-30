@@ -13,7 +13,8 @@ public class UImanager : MonoBehaviour
     public GameObject map;
     public GameObject combatUI;
 
-    public GameObject gameOverScreen;
+    public GameObject endOfGameScreen;
+    public TextMeshProUGUI endOfGameTitle;
     public TextMeshProUGUI gameOverStats;
     
     public void UpdateUI()
@@ -40,12 +41,26 @@ public class UImanager : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverScreen.SetActive(true);
+        endOfGameScreen.SetActive(true);
+        endOfGameTitle.text = "game over";
+        SetupGameStats();
+    }
+
+    public void GameWon()
+    {
+        endOfGameScreen.SetActive(true);
+        endOfGameTitle.text = "victory";
+        SetupGameStats();
+    }
+
+    void SetupGameStats()
+    {
+
     }
 
     public void NewGame()
     {
-        gameOverScreen.SetActive(false);
+        endOfGameScreen.SetActive(false);
         EndCombat();
         map.SetActive(true);
     }

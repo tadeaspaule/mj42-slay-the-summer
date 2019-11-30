@@ -1309,7 +1309,7 @@ GameObject:
   - component: {fileID: 582517016}
   - component: {fileID: 582517015}
   m_Layer: 5
-  m_Name: gameovertitle
+  m_Name: endofgametitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2371,7 +2371,8 @@ MonoBehaviour:
   discardText: {fileID: 38049928}
   map: {fileID: 1622286413}
   combatUI: {fileID: 778792758}
-  gameOverScreen: {fileID: 1787315238}
+  endOfGameScreen: {fileID: 1787315238}
+  endOfGameTitle: {fileID: 582517015}
   gameOverStats: {fileID: 1462144378}
 --- !u!4 &1163347694
 Transform:
@@ -3869,7 +3870,7 @@ GameObject:
   - component: {fileID: 1787315241}
   - component: {fileID: 1787315240}
   m_Layer: 5
-  m_Name: gameOverScreen
+  m_Name: endOfGameScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
