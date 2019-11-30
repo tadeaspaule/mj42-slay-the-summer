@@ -35,15 +35,19 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inCombat = false;
-        player = new Entity();
-        player.friendly = true;
-        playerChar.e = player;
-
         List<CardData> allCards = Helper.readJsonArray<CardData>(cardsJson.ToString());
         foreach (CardData cd in allCards) {
             cards.Add(cd.name,cd);
         }
+        ResetGame();
+    }
+
+    void ResetGame()
+    {
+        inCombat = false;
+        player = new Entity();
+        player.friendly = true;
+        playerChar.e = player;
         SetupStartDeck();
         StartPlayerTurn();
         map.SetupMap();
@@ -132,6 +136,8 @@ public class GameManager : MonoBehaviour
     void SetupStartDeck()
     {
         deck.Clear();
+        discardPile.Clear();
+        hand.Clear();
         for (int i = 0; i < 5; i++) deck.Add(cards["Attack"]);
         for (int i = 0; i < 5; i++) deck.Add(cards["Defend"]);
         for (int i = 0; i < 2; i++) deck.Add(cards["Draw cards"]);
@@ -167,11 +173,6 @@ public class GameManager : MonoBehaviour
     
     #region Combat
 
-    void GameOver()
-    {
-        Debug.Log("game over");
-    }
-
     public void ClickedEndTurn()
     {
         EnemyActs();
@@ -181,6 +182,7 @@ public class GameManager : MonoBehaviour
     void EnemyActs()
     {
         Debug.Log("AI did something");
+        player.TakeDamage(3);
         CheckDeaths();
     }
     
@@ -218,6 +220,27 @@ public class GameManager : MonoBehaviour
     {
         inCombat = false;
         uImanager.EndCombat();
+    }
+
+    #endregion
+
+    #region Game over
+
+    void GameOver()
+    {
+        uImanager.GameOver();
+    }
+
+    public void ClickedNewGame()
+    {
+        foreach (Transform child in enemyHolder) Destroy(child.gameObject);
+        ResetGame();
+        uImanager.NewGame();
+    }
+
+    public void ClickedMainMenu()
+    {
+
     }
 
     #endregion

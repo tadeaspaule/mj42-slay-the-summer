@@ -12,6 +12,9 @@ public class UImanager : MonoBehaviour
 
     public GameObject map;
     public GameObject combatUI;
+
+    public GameObject gameOverScreen;
+    public TextMeshProUGUI gameOverStats;
     
     public void UpdateUI()
     {
@@ -33,5 +36,17 @@ public class UImanager : MonoBehaviour
     public void EndCombat()
     {
         combatUI.SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        gameOverScreen.SetActive(true);
+    }
+
+    public void NewGame()
+    {
+        gameOverScreen.SetActive(false);
+        EndCombat();
+        map.SetActive(true);
     }
 }
