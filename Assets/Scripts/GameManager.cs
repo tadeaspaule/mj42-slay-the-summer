@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public CardHolder cardHolder;
 
     public bool inCombat = false;
+    bool waitingForAI = false;
 
     public Map map;
     
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     void ResetGame()
     {
+        waitingForAI = false;
         inCombat = false;
         player = new Entity();
         player.friendly = true;
@@ -97,14 +99,8 @@ public class GameManager : MonoBehaviour
     
     void UseCard()
     {
-        StartCoroutine(UseCardDelayed(0.5f));
-    }
-
-    IEnumerator UseCardDelayed(float delay)
-    {
         usingCard.cd.UseCard(player,target,map.currentNode.enemies);
         mana -= usingCard.cd.cost;
-        yield return new WaitForSeconds(delay);
         discardPile.Add(usingCard.cd);
         for (int i = 0; i < usingCard.cd.cardDraw; i++) {
             cardHolder.AddCard(DrawRandomCard());
@@ -149,6 +145,7 @@ public class GameManager : MonoBehaviour
 
     void StartPlayerTurn()
     {
+        waitingForAI = false;
         // draws cards
         discardPile.AddRange(hand);
         hand.Clear();
@@ -158,6 +155,9 @@ public class GameManager : MonoBehaviour
         // update UI        
         cardHolder.UpdateHand();
         uImanager.UpdateUI();
+        foreach (Transform child in enemyHolder) {
+            child.GetComponent<Character>().DecideMove();
+        }
     }
 
     CardData DrawRandomCard()
@@ -179,15 +179,28 @@ public class GameManager : MonoBehaviour
 
     public void ClickedEndTurn()
     {
+        if (waitingForAI) return;
         EnemyActs();
-        StartPlayerTurn();
     }
 
     void EnemyActs()
     {
-        Debug.Log("AI did something");
-        // player.TakeDamage(3);
+        waitingForAI = true;
+        discardPile.AddRange(hand);
+        hand.Clear();
+        cardHolder.UpdateHand();
+        StartCoroutine(ExecuteEnemyMoves(0));
+    }
+
+    IEnumerator ExecuteEnemyMoves(int index)
+    {
+        enemyHolder.GetChild(index).GetComponent<Character>().ExecuteMove();
+        uImanager.UpdateUI();
+        yield return new WaitForSeconds(0.5f);
         CheckDeaths();
+        if (player.health > 0 && enemyHolder.childCount > index+1)
+            StartCoroutine(ExecuteEnemyMoves(index+1));
+        else if (player.health > 0) StartPlayerTurn();
     }
     
     float space = 2.4f;

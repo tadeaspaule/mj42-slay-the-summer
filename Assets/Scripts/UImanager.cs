@@ -10,6 +10,8 @@ public class UImanager : MonoBehaviour
     public TextMeshProUGUI deckText;
     public TextMeshProUGUI discardText;
 
+    public TextMeshProUGUI healthText;
+
     public GameObject map;
     public GameObject combatUI;
 
@@ -64,6 +66,7 @@ public class UImanager : MonoBehaviour
         deckText.text = gameManager.deck.Count.ToString();
         discardText.text = gameManager.discardPile.Count.ToString();
         resourceText.text = $"{gameManager.mana}/{gameManager.maxMana}";
+        healthText.text = $"{gameManager.player.health}/{gameManager.player.maxHealth}";
     }
 
     public void ToggleMap()

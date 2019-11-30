@@ -13,6 +13,10 @@ public class Character : MonoBehaviour
     Image moveIndicator;
     TextMeshProUGUI armorText;
     GameObject armorHolder;
+
+    bool attacking;
+    int nextAttack = 3;
+    int nextArmor = 3;
     
     // Start is called before the first frame update
     void Start()
@@ -41,6 +45,19 @@ public class Character : MonoBehaviour
     void OnMouseExit()
     {
         gameManager.LeftCharacter();      
+    }
+
+    public void DecideMove()
+    {
+        attacking = Random.Range(0,3) < 2;
+        string s = attacking ? "attackIcon" : "shieldIcon";
+        moveIndicator.sprite = Resources.Load<Sprite>($"Icons/{s}");
+    }
+
+    public void ExecuteMove()
+    {
+        if (attacking) gameManager.player.TakeDamage(nextAttack);
+        else e.armor += nextArmor;
     }
 
     #endregion

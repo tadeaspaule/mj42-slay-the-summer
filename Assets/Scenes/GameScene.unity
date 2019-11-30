@@ -4904,6 +4904,7 @@ MonoBehaviour:
   resourceText: {fileID: 1826599298}
   deckText: {fileID: 1816703192}
   discardText: {fileID: 38049928}
+  healthText: {fileID: 304027177}
   map: {fileID: 1622286413}
   combatUI: {fileID: 778792758}
   endOfGameScreen: {fileID: 1787315238}
@@ -7731,6 +7732,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.7
       objectReference: {fileID: 0}
+    - target: {fileID: 8241925088850325853, guid: 647fce3d7fb7edd479d456e36765b335,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.19999695
+      objectReference: {fileID: 0}
+    - target: {fileID: 8241925088850325853, guid: 647fce3d7fb7edd479d456e36765b335,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -5.199997
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1865073027136472535, guid: 647fce3d7fb7edd479d456e36765b335, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 647fce3d7fb7edd479d456e36765b335, type: 3}
@@ -9306,7 +9317,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 2
   m_StartAxis: 0
-  m_CellSize: {x: 200, y: 300}
+  m_CellSize: {x: 256, y: 328}
   m_Spacing: {x: 10, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
@@ -9515,6 +9526,11 @@ PrefabInstance:
     - target: {fileID: 3640295922369621136, guid: c01aeafb3f9549c4c86289113e7c6943,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221568816032063335, guid: c01aeafb3f9549c4c86289113e7c6943,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
