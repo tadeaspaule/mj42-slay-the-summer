@@ -16,6 +16,7 @@ public class UImanager : MonoBehaviour
     public TextMeshProUGUI goldText;
 
     public AudioClip mapSound;
+    public AudioClip coinSound;
     public GameObject map;
     public GameObject combatUI;
 
@@ -83,6 +84,11 @@ public class UImanager : MonoBehaviour
         resourceText.text = $"{gameManager.mana}/{gameManager.maxMana}";
         healthText.text = $"{gameManager.player.health}/{gameManager.player.maxHealth}";
         goldText.text = gameManager.gold.ToString();
+    }
+
+    public void PlayCoinSound()
+    {
+        audioSource.PlayOneShot(coinSound);        
     }
 
     public void ToggleMap()

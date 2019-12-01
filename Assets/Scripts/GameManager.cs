@@ -388,6 +388,7 @@ public class GameManager : MonoBehaviour
         goldRewardObject.SetActive(false);
         gold += goldReward;
         uImanager.UpdateUI();
+        uImanager.PlayCoinSound();
     }
 
     public void ClickedCardRewards()

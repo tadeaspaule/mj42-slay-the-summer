@@ -7934,6 +7934,7 @@ MonoBehaviour:
   healthText: {fileID: 304027177}
   goldText: {fileID: 1330858193}
   mapSound: {fileID: 8300000, guid: 0036e6ee49268184b927a2f9baec82a4, type: 3}
+  coinSound: {fileID: 8300000, guid: a2d78a08e99f22942a3aac47f751201a, type: 3}
   map: {fileID: 1622286413}
   combatUI: {fileID: 778792758}
   endOfGameScreen: {fileID: 1787315238}
