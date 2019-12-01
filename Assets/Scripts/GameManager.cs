@@ -122,6 +122,12 @@ public class GameManager : MonoBehaviour
         cardsUsed++;
         armorGained += usingCard.cd.armorSelf;
         damageDealt += usingCard.cd.UseCard(player,target,map.currentNode.enemies);
+        if (usingCard.cd.damageAll > 0) {
+            foreach (Transform child in enemyHolder) {
+                child.GetComponent<Character>().PlayHurtAnim();
+            }
+        }
+        else if (usingCard.cd.damageTarget > 0) target.PlayHurtAnim();
         playerChar.PlayAttackAnim();
         mana -= usingCard.cd.cost;
         discardPile.Add(usingCard.cd);

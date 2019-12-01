@@ -28,6 +28,7 @@ public class Character : MonoBehaviour
     Sprite[] idleAnim;
     Sprite[] attackAnim;
     Sprite[] deathAnim;
+    Sprite[] hurtAnim;
     Sprite[] currentPlayingAnim;
     int animI;
     float animTimer = 0f;
@@ -67,6 +68,7 @@ public class Character : MonoBehaviour
         idleAnim = Resources.LoadAll<Sprite>($"animations/{e.name}idle");
         attackAnim = Resources.LoadAll<Sprite>($"animations/{e.name}attack");
         deathAnim = Resources.LoadAll<Sprite>($"animations/{e.name}death");
+        hurtAnim = Resources.LoadAll<Sprite>($"animations/{e.name}hurt");
         currentPlayingAnim = idleAnim;
         animI = 0;
         animTimer = 0f;
@@ -81,6 +83,16 @@ public class Character : MonoBehaviour
         animTimer = 0f;
         charImage.sprite = currentPlayingAnim[0];
         return attackAnim.Length*animStep;
+    }
+
+    public float PlayHurtAnim()
+    {
+        if (hurtAnim == null) return 0f;
+        currentPlayingAnim = hurtAnim;
+        animI = 0;
+        animTimer = 0f;
+        charImage.sprite = currentPlayingAnim[0];
+        return hurtAnim.Length*animStep;
     }
 
     public float PlayDeathAnim()
