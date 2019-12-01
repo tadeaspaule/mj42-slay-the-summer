@@ -1,12 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
     public GameManager gameManager;
     public GameObject mapNodePrefab;
     public MapNode currentNode = null;
+    public Sprite shopSprite;
+    float shopChance = 0.3f;
     
     public void SetupMap()
     {
@@ -39,10 +41,16 @@ public class Map : MonoBehaviour
                 MapNode mn = go.GetComponent<MapNode>();
                 nodes.Add(mn);
                 mn.SetupConnections(nodes.GetRange(from,lastN));
-                int enem = Random.Range(1,4);
-                for (int iii = 0; iii < enem; iii++) {
-                    mn.enemies.Add(gameManager.allEnemies[Random.Range(0,gameManager.allEnemies.Count)].GetClone());
+                if (Random.Range(0f,1f) <= shopChance) {
+                    mn.isShopkeeper = true;
+                    mn.GetComponent<Image>().sprite = shopSprite;
                 }
+                else {
+                    int enem = Random.Range(1,4);
+                    for (int iii = 0; iii < enem; iii++) {
+                        mn.enemies.Add(gameManager.allEnemies[Random.Range(0,gameManager.allEnemies.Count)].GetClone());
+                    }
+                }                
             }
             from += lastN;
             lastN = n;
@@ -57,7 +65,7 @@ public class Map : MonoBehaviour
         currentNode = node;
         currentNode.EnableCurrentIndicator();
         Debug.Log($"Moved to {node.gameObject.name}");
-        gameManager.StartCombat(node);
+        gameManager.EnterNode(node);
         this.gameObject.SetActive(false);
     }
 }

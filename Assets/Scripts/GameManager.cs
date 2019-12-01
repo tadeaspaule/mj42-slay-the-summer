@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     public Map map;
 
     public Character shopkeeper;
+    public Transform shopkeeperPrices;
+    public Transform shopkeeperSelection;
     
     #region Unity methods
     
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
         armorGained = 0;
         damageDealt = 0;
         cardsDrawn = 0;
-        gold = 0;
+        gold = 300;
         uImanager.UpdateUI();
     }
 
@@ -284,8 +286,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartCombat(MapNode node)
+    public void EnterNode(MapNode node)
     {
+        if (node.isShopkeeper) GenerateShop();
+        else StartCombat(node);
+    }
+
+    void StartCombat(MapNode node)
+    {
+        ToggleShop(false);
         currentEnemies.Clear();
         SpawnEnemies(node.enemies);
         inCombat = true;
@@ -309,6 +318,43 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region Shopkeeper
+
+    int cost;
+    int minCost = 50;
+
+    void GenerateShop()
+    {
+        ToggleShop(true);
+        cost = gold / 2;
+        if (cost < minCost) cost = minCost;
+        for (int i = 0; i < 3; i++) {
+            shopkeeperSelection.GetChild(i).gameObject.SetActive(true);
+            shopkeeperSelection.GetChild(i).GetComponent<Card>().UpdateInfo(notBaseCards[Random.Range(0,notBaseCards.Count)],false);
+            shopkeeperPrices.GetChild(i).gameObject.SetActive(true);
+            shopkeeperPrices.GetChild(i).GetComponent<TextMeshProUGUI>().text = $"{cost} gold";
+        }
+    }
+
+    void ToggleShop(bool active)
+    {        
+        shopkeeperPrices.gameObject.SetActive(active);
+        shopkeeperSelection.gameObject.SetActive(active);
+        shopkeeper.gameObject.SetActive(active);
+    }
+
+    public void PurchaseCard(Card card)
+    {
+        if (cost > gold) return;
+        gold -= cost;
+        deck.Add(card.cd);
+        card.gameObject.SetActive(false);
+        shopkeeperPrices.GetChild(int.Parse(card.gameObject.name)).gameObject.SetActive(false);
+        uImanager.UpdateUI();
+    }
+
+    #endregion
+    
     #region Battle Rewards
 
     public GameObject rewardsOuter;

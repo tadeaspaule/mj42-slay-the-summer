@@ -7,13 +7,13 @@
     {
         "name": "Ice Shuriken",
         "damageTarget": 40,
-        "base": true,
+        "baseCard": true,
         "cost": 1
     },
     {
         "name": "Carrot Snack",
         "armorSelf": 3,
-        "base": true,
+        "baseCard": true,
         "cost": 1
     },
     {

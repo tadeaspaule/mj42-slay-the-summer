@@ -7,6 +7,7 @@ public class MapNode : MonoBehaviour
     public List<Enemy> enemies = new List<Enemy>();
     public List<MapNode> connections = new List<MapNode>();
     Map map;
+    public bool isShopkeeper;
 
     void Start()
     {
