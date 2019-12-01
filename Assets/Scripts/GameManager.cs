@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour
         if (count == 0) {
             EndCombat();
             if (map.currentNode.connections.Count == 0) GameWon();
+            else GenerateRewards();
         }
     }
 
@@ -270,7 +271,6 @@ public class GameManager : MonoBehaviour
     {
         inCombat = false;
         uImanager.EndCombat();
-        GenerateRewards();
     }
 
     #endregion
