@@ -5,6 +5,8 @@ using TMPro;
 
 public class UImanager : MonoBehaviour
 {
+    public AudioSource audioSource;
+
     public GameManager gameManager;
     public TextMeshProUGUI resourceText;
     public TextMeshProUGUI deckText;
@@ -13,6 +15,7 @@ public class UImanager : MonoBehaviour
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI goldText;
 
+    public AudioClip mapSound;
     public GameObject map;
     public GameObject combatUI;
 
@@ -84,11 +87,13 @@ public class UImanager : MonoBehaviour
 
     public void ToggleMap()
     {
+        audioSource.PlayOneShot(mapSound);
         map.SetActive(!map.activeInHierarchy);
     }
 
     public void OpenMap()
     {
+        audioSource.PlayOneShot(mapSound);
         map.SetActive(true);
     }
 
