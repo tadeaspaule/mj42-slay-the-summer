@@ -681,6 +681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   uImanager: {fileID: 0}
+  charImage: {fileID: 9186558060343062358}
   healthText: {fileID: 9186558060518081833}
   moveIndicator: {fileID: 1687312280461555217}
   armorText: {fileID: 3640295922369621136}

@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     public UImanager uImanager;
     public Entity e;
 
+    public SpriteRenderer charImage;
     public TextMeshProUGUI healthText;
     public Image moveIndicator;
     public TextMeshProUGUI armorText;
@@ -22,6 +23,14 @@ public class Character : MonoBehaviour
     const int DEBUFF_ARMOR = 3;
     int nextAttack = 3;
     int nextArmor = 3;
+
+    Sprite[] idleAnim;
+    Sprite[] attackAnim;
+    Sprite[] currentPlayingAnim;
+    int animI;
+    const int FPS = 4;
+    float animTimer = 0f;
+    float animStep = 1f / FPS;
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +43,39 @@ public class Character : MonoBehaviour
         healthText.text = $"{e.health}/{e.maxHealth}";
         armorHolder.SetActive(e.armor > 0);
         armorText.text = e.armor.ToString();
+
+        if (currentPlayingAnim != null) {
+            animTimer += Time.deltaTime;
+            if (animTimer >= animStep) {
+                animTimer = 0f;
+                animI++;
+                if (animI >= currentPlayingAnim.Length) {
+                    animI = 0;
+                    currentPlayingAnim = idleAnim;
+                }
+                charImage.sprite = currentPlayingAnim[animI];
+            }
+        }
+    }
+
+    public void ResetAnimations()
+    {
+        idleAnim = Resources.LoadAll<Sprite>($"animations/{e.name}idle");
+        attackAnim = Resources.LoadAll<Sprite>($"animations/{e.name}attack");
+        currentPlayingAnim = idleAnim;
+        animI = 0;
+        animTimer = 0f;
+        if (currentPlayingAnim != null) charImage.sprite = currentPlayingAnim[0];
+    }
+
+    public float PlayAttackAnim()
+    {
+        if (attackAnim == null) return 0f;
+        currentPlayingAnim = attackAnim;
+        animI = 0;
+        animTimer = 0f;
+        charImage.sprite = currentPlayingAnim[0];
+        return attackAnim.Length*animStep;
     }
 
     #region Mouse Interaction

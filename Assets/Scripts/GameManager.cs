@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
             cards.Add(cd.name,cd);
         }
         ResetGame();
+        playerChar.gameManager = this;
+        playerChar.uImanager = uImanager;
+        playerChar.ResetAnimations();
     }
 
     void ResetGame()
@@ -50,6 +53,7 @@ public class GameManager : MonoBehaviour
         inCombat = false;
         player = new Entity();
         player.friendly = true;
+        player.name = "player";
         playerChar.e = player;
         SetupStartDeck();
         map.SetupMap();
@@ -96,6 +100,7 @@ public class GameManager : MonoBehaviour
     void UseCard()
     {
         usingCard.cd.UseCard(player,target,map.currentNode.enemies);
+        playerChar.PlayAttackAnim();
         mana -= usingCard.cd.cost;
         discardPile.Add(usingCard.cd);
         for (int i = 0; i < usingCard.cd.cardDraw; i++) {
