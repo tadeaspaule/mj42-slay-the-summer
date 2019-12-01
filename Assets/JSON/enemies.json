@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Slime",
+        "health": 20,
+        "shielding": 8,
+        "attacking": 2,
+        "shieldChance": 0.6
+    },
+    {
+        "name": "Skeleton",
+        "health": 10,
+        "shielding": 3,
+        "attacking": 4,
+        "shieldChance": 0.3
+    }
+]

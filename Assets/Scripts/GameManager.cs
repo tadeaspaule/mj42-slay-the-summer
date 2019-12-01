@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public TextAsset cardsJson;
     List<CardData> notBaseCards = new List<CardData>();
     Dictionary<string,CardData> cards = new Dictionary<string, CardData>();
+    
+    public TextAsset enemiesJson;
+    List<Enemy> allEnemies;
 
     int handSize = 4;
     public List<CardData> deck = new List<CardData>();
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         List<CardData> allCards = Helper.readJsonArray<CardData>(cardsJson.ToString());
+        allEnemies = Helper.readJsonArray<Enemy>(enemiesJson.ToString());
         foreach (CardData cd in allCards) {
             cards.Add(cd.name,cd);
             if (!cd.baseCard) notBaseCards.Add(cd);
@@ -237,6 +241,8 @@ public class GameManager : MonoBehaviour
             Character c = go.GetComponent<Character>();
             c.gameManager = this;
             c.uImanager = uImanager;
+            allEnemies[Random.Range(0,allEnemies.Count)].SetupCharacter(c);
+            c.ResetAnimations();
         }
         if (n == 2) {
             enemies[0].transform.position -= new Vector3(space*0.5f,0f,0f);
@@ -245,9 +251,6 @@ public class GameManager : MonoBehaviour
         else if (n == 3) {
             enemies[0].transform.position -= new Vector3(space,0f,0f);
             enemies[2].transform.position += new Vector3(space,0f,0f);
-        }
-        for (int i = 0; i < enemyEntities.Count; i++) {
-            enemies[i].GetComponent<Character>().e = enemyEntities[i];
         }
     }
 

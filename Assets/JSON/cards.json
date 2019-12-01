@@ -26,5 +26,10 @@
         "armorSelf": 4,
         "cardDraw": 1,
         "cost": 2
+    },
+    {
+        "name": "Ice Cane Blade",
+        "damageAll": 3,
+        "cost": 2
     }
 ]

@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holder: {fileID: 0}
+  mouseActive: 0
   nameText: {fileID: 3192741318208421597}
   costText: {fileID: 6961173764587065610}
   descriptionText: {fileID: 5899190079684958709}

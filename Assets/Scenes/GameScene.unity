@@ -233,6 +233,7 @@ MonoBehaviour:
   mana: 3
   maxMana: 3
   cardsJson: {fileID: 4900000, guid: 8c3b543d2d92a8c4bbff582105af1380, type: 3}
+  enemiesJson: {fileID: 4900000, guid: 299c1895ac0f4544e9ccb6a1b89c65a0, type: 3}
   cardHolder: {fileID: 263927496}
   inCombat: 1
   cardsUsed: 0

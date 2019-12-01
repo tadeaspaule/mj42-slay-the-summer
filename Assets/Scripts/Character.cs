@@ -21,16 +21,16 @@ public class Character : MonoBehaviour
     const int ARMOR = 1;
     const int DEBUFF_ATTACK = 2;
     const int DEBUFF_ARMOR = 3;
-    int nextAttack = 3;
-    int nextArmor = 3;
+    public int nextAttack = 3;
+    public int nextArmor = 3;
+    public float shieldChance;
 
     Sprite[] idleAnim;
     Sprite[] attackAnim;
     Sprite[] currentPlayingAnim;
     int animI;
-    const int FPS = 4;
     float animTimer = 0f;
-    float animStep = 1f / FPS;
+    float animStep = 0.1f;
     
     // Start is called before the first frame update
     void Start()
@@ -60,6 +60,7 @@ public class Character : MonoBehaviour
 
     public void ResetAnimations()
     {
+        Debug.Log(e.name);
         idleAnim = Resources.LoadAll<Sprite>($"animations/{e.name}idle");
         attackAnim = Resources.LoadAll<Sprite>($"animations/{e.name}attack");
         currentPlayingAnim = idleAnim;
@@ -92,7 +93,7 @@ public class Character : MonoBehaviour
 
     public void DecideMove()
     {
-        nextStep = Random.Range(0,2);
+        nextStep = Random.Range(0f,1f) <= shieldChance ? ARMOR : ATTACK;
         if (nextStep == ATTACK) moveIndicator.sprite = uImanager.attackIcon;
         else if (nextStep == ARMOR) moveIndicator.sprite = uImanager.armorIcon;
         else if (nextStep == DEBUFF_ATTACK) moveIndicator.sprite = uImanager.attackDebuffIcon;
