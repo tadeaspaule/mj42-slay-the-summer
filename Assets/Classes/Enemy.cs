@@ -17,14 +17,25 @@ public class Enemy
         character.nextArmor = shielding;
     }
 
-    Enemy GetClone()
+    public Enemy GetClone()
     {
         Enemy e = new Enemy();
         e.name = name;
         e.health = health;
         e.attacking = attacking;
-        e.shieldChance = shieldChance;
         e.shielding = shielding;
+        e.shieldChance = shieldChance;
+        return e;
+    }
+
+    public static Enemy GetBoss()
+    {
+        Enemy e = new Enemy();
+        e.name = "boss";
+        e.health = 100;
+        e.attacking = 6;
+        e.shielding = 6;
+        e.shieldChance = 0.5f;
         return e;
     }
 }

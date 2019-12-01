@@ -25,13 +25,15 @@ public class GameManager : MonoBehaviour
     Dictionary<string,CardData> cards = new Dictionary<string, CardData>();
     
     public TextAsset enemiesJson;
-    List<Enemy> allEnemies;
+    public List<Enemy> allEnemies;
 
     int handSize = 4;
     public List<CardData> deck = new List<CardData>();
     public List<CardData> hand = new List<CardData>();
     public List<CardData> discardPile = new List<CardData>();
     public CardHolder cardHolder;
+
+    List<Entity> currentEnemies = new List<Entity>();
 
     public bool inCombat = false;
     bool waitingForAI = false;
@@ -126,7 +128,7 @@ public class GameManager : MonoBehaviour
     {
         cardsUsed++;
         armorGained += usingCard.cd.armorSelf;
-        damageDealt += usingCard.cd.UseCard(player,target,map.currentNode.enemies);
+        damageDealt += usingCard.cd.UseCard(player,target,currentEnemies);
         if (usingCard.cd.damageAll > 0) {
             foreach (Transform child in enemyHolder) {
                 child.GetComponent<Character>().PlayHurtAnim();
@@ -157,7 +159,7 @@ public class GameManager : MonoBehaviour
             Character c = enemyChar.GetComponent<Character>();
             if (c.e.health == 0) {
                 StartCoroutine(DelayedDeath(c,c.PlayDeathAnim()));
-                map.currentNode.enemies.Remove(c.e);
+                currentEnemies.Remove(c.e);
                 count --;
             }
         }
@@ -172,7 +174,10 @@ public class GameManager : MonoBehaviour
     {
         character.targettable = false;
         yield return new WaitForSeconds(delay);
-        Destroy(character.gameObject);
+        try {
+            Destroy(character.gameObject);
+        }
+        catch {}
     }
 
     void SetupStartDeck()
@@ -248,7 +253,7 @@ public class GameManager : MonoBehaviour
     
     float space = 2.8f;
 
-    public void SpawnEnemies(List<Entity> enemyEntities)
+    public void SpawnEnemies(List<Enemy> enemyEntities)
     {
         foreach (Transform child in enemyHolder) Destroy(child.gameObject);
         int n = enemyEntities.Count;
@@ -259,8 +264,6 @@ public class GameManager : MonoBehaviour
             Character c = go.GetComponent<Character>();
             c.gameManager = this;
             c.uImanager = uImanager;
-            allEnemies[Random.Range(0,allEnemies.Count)].SetupCharacter(c);
-            c.ResetAnimations();
         }
         if (n == 2) {
             enemies[0].transform.position -= new Vector3(space*0.5f,0f,0f);
@@ -270,10 +273,20 @@ public class GameManager : MonoBehaviour
             enemies[0].transform.position -= new Vector3(space,0f,0f);
             enemies[2].transform.position += new Vector3(space,0f,0f);
         }
+        else if (n == 1 && enemyEntities[0].name == "boss") {
+            enemies[0].transform.localScale = new Vector3(2f,2f,2f);
+        }
+        for (int i = 0; i < n; i++) {
+            Character c = enemies[i].GetComponent<Character>();
+            enemyEntities[i].SetupCharacter(c);
+            c.ResetAnimations();
+            currentEnemies.Add(c.e);
+        }
     }
 
     public void StartCombat(MapNode node)
     {
+        currentEnemies.Clear();
         SpawnEnemies(node.enemies);
         inCombat = true;
         mana = maxMana;

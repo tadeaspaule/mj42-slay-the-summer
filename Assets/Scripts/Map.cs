@@ -13,9 +13,7 @@ public class Map : MonoBehaviour
         List<MapNode> nodes = new List<MapNode>();
         MapNode final = transform.GetChild(0).GetComponent<MapNode>();
         final.enemies.Clear();
-        Entity finalBoss = new Entity();
-        finalBoss.health = 30;
-        finalBoss.maxHealth = 30;
+        Enemy finalBoss = Enemy.GetBoss();
         final.enemies.Add(finalBoss);
         foreach (Transform child in transform)
             if (!child.GetComponent<MapNode>().Equals(final)) Destroy(child.gameObject);
@@ -42,7 +40,9 @@ public class Map : MonoBehaviour
                 nodes.Add(mn);
                 mn.SetupConnections(nodes.GetRange(from,lastN));
                 int enem = Random.Range(1,4);
-                for (int iii = 0; iii < enem; iii++) mn.enemies.Add(new Entity());
+                for (int iii = 0; iii < enem; iii++) {
+                    mn.enemies.Add(gameManager.allEnemies[Random.Range(0,gameManager.allEnemies.Count)].GetClone());
+                }
             }
             from += lastN;
             lastN = n;

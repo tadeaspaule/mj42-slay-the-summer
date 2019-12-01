@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapNode : MonoBehaviour
 {
-    public List<Entity> enemies = new List<Entity>();
+    public List<Enemy> enemies = new List<Enemy>();
     public List<MapNode> connections = new List<MapNode>();
     Map map;
 
