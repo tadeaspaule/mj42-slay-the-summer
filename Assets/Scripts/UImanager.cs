@@ -29,6 +29,12 @@ public class UImanager : MonoBehaviour
     public Sprite attackDebuffIcon;
     public Sprite armorDebuffIcon;
 
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI highscoreText;
+    public TextMeshProUGUI damageText;
+    public TextMeshProUGUI armorText;
+    public TextMeshProUGUI drawText;
+    
     void OpenCardShowcase(List<CardData> cards)
     {
         foreach (Transform child in cardShowcaseHolder) Destroy(child.gameObject);
@@ -112,7 +118,16 @@ public class UImanager : MonoBehaviour
 
     void SetupGameStats()
     {
-
+        int highscore = PlayerPrefs.GetInt("highscore",0);
+        if (gameManager.gold > highscore) {
+            highscore = gameManager.gold;
+            PlayerPrefs.SetInt("highscore",highscore);
+        }
+        scoreText.text = gameManager.gold.ToString();
+        highscoreText.text = highscore.ToString();
+        damageText.text = gameManager.damageDealt.ToString();
+        armorText.text = gameManager.armorGained.ToString();
+        drawText.text = gameManager.cardsDrawn.ToString();
     }
 
     public void NewGame()

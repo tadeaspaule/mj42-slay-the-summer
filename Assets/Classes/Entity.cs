@@ -8,7 +8,7 @@ public class Entity
     public string name = "enemy";
     public int armor = 0;
 
-    public void TakeDamage(int amount)
+    public int TakeDamage(int amount)
     {
         if (armor > 0) {
             armor -= amount;
@@ -18,8 +18,10 @@ public class Entity
             }
             else amount = 0;
         }
+        int dmg = health > amount ? amount : health;
         health -= amount;
         UpdateHealth();
+        return dmg;
     }
 
     public void Heal(int amount)

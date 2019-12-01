@@ -33,6 +33,12 @@ public class GameManager : MonoBehaviour
     public bool inCombat = false;
     bool waitingForAI = false;
 
+    // stat stuff
+    public int cardsUsed = 0;
+    public int armorGained = 0;
+    public int damageDealt = 0;
+    public int cardsDrawn = 0;
+
     public Map map;
     
     #region Unity methods
@@ -61,6 +67,12 @@ public class GameManager : MonoBehaviour
         playerChar.e = player;
         SetupStartDeck();
         map.SetupMap();
+        cardsUsed = 0;
+        armorGained = 0;
+        damageDealt = 0;
+        cardsDrawn = 0;
+        gold = 0;
+        uImanager.UpdateUI();
     }
 
     void Update()
@@ -103,7 +115,9 @@ public class GameManager : MonoBehaviour
     
     void UseCard()
     {
-        usingCard.cd.UseCard(player,target,map.currentNode.enemies);
+        cardsUsed++;
+        armorGained += usingCard.cd.armorSelf;
+        damageDealt += usingCard.cd.UseCard(player,target,map.currentNode.enemies);
         playerChar.PlayAttackAnim();
         mana -= usingCard.cd.cost;
         discardPile.Add(usingCard.cd);
@@ -167,6 +181,7 @@ public class GameManager : MonoBehaviour
 
     CardData DrawRandomCard()
     {
+        cardsDrawn++;
         if (deck.Count == 0) {
             deck.AddRange(discardPile);
             discardPile.Clear();

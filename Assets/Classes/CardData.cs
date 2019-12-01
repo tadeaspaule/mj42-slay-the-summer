@@ -22,12 +22,14 @@ public class CardData
         return txt;
     }
 
-    public void UseCard(Entity player, Character target, List<Entity> allEnemies)
+    public int UseCard(Entity player, Character target, List<Entity> allEnemies)
     {
-        player.TakeDamage(damageSelf);
+        int dmg = 0;
+        dmg += player.TakeDamage(damageSelf);
         target.e.TakeDamage(damageTarget);
-        foreach (Entity e in allEnemies) e.TakeDamage(damageAll);
+        foreach (Entity e in allEnemies) dmg += e.TakeDamage(damageAll);
         player.armor += armorSelf;
+        return dmg;
     }
 
     public bool IsSelfCard()
