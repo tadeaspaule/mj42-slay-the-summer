@@ -11,6 +11,7 @@ public class UImanager : MonoBehaviour
     public TextMeshProUGUI discardText;
 
     public TextMeshProUGUI healthText;
+    public TextMeshProUGUI goldText;
 
     public GameObject map;
     public GameObject combatUI;
@@ -72,11 +73,17 @@ public class UImanager : MonoBehaviour
         discardText.text = gameManager.discardPile.Count.ToString();
         resourceText.text = $"{gameManager.mana}/{gameManager.maxMana}";
         healthText.text = $"{gameManager.player.health}/{gameManager.player.maxHealth}";
+        goldText.text = gameManager.gold.ToString();
     }
 
     public void ToggleMap()
     {
         map.SetActive(!map.activeInHierarchy);
+    }
+
+    public void OpenMap()
+    {
+        map.SetActive(true);
     }
 
     public void StartCombat()

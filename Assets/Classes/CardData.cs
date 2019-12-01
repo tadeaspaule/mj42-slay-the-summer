@@ -9,6 +9,7 @@ public class CardData
     public int damageSelf;
     public int armorSelf;
     public int cardDraw;
+    public bool baseCard;
 
     public string GetCardText()
     {

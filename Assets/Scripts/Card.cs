@@ -8,7 +8,7 @@ public class Card : MonoBehaviour
 {
     public CardHolder holder;
     public CardData cd;
-    bool mouseActive;
+    public bool mouseActive;
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI costText;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     public LineRenderer targetLine;
     public Character playerChar;
     public Entity player;
+    public int gold;
     public int mana = 3;
     public int maxMana = 3;
 
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
     Character target;
 
     public TextAsset cardsJson;
+    List<CardData> notBaseCards = new List<CardData>();
     Dictionary<string,CardData> cards = new Dictionary<string, CardData>();
 
     int handSize = 4;
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
         List<CardData> allCards = Helper.readJsonArray<CardData>(cardsJson.ToString());
         foreach (CardData cd in allCards) {
             cards.Add(cd.name,cd);
+            if (!cd.baseCard) notBaseCards.Add(cd);
         }
         ResetGame();
         playerChar.gameManager = this;
@@ -251,10 +255,60 @@ public class GameManager : MonoBehaviour
     {
         inCombat = false;
         uImanager.EndCombat();
+        GenerateRewards();
     }
 
     #endregion
 
+    #region Battle Rewards
+
+    public GameObject rewardsOuter;
+    int goldReward;
+    public TextMeshProUGUI goldText;
+    public GameObject goldRewardObject;
+    public GameObject cardRewardObject;
+    public GameObject cardRewardSelection;
+
+    void GenerateRewards()
+    {
+        rewardsOuter.SetActive(true);
+        goldRewardObject.SetActive(true);
+        cardRewardObject.SetActive(true);
+        cardRewardSelection.SetActive(false);
+        foreach (Transform c in cardRewardSelection.transform) {
+            c.GetComponent<Card>().UpdateInfo(notBaseCards[Random.Range(0,notBaseCards.Count)],false);
+        }
+        goldReward = Random.Range(20,40);
+        goldText.text = $"{goldReward} gold";
+    }
+
+    public void ClickedSkipRewards()
+    {
+        rewardsOuter.SetActive(false);
+        uImanager.OpenMap();
+    }
+
+    public void ClickedGoldReward()
+    {
+        goldRewardObject.SetActive(false);
+        gold += goldReward;
+        uImanager.UpdateUI();
+    }
+
+    public void ClickedCardRewards()
+    {
+        cardRewardSelection.SetActive(true);
+    }
+
+    public void SelectedCardReward(Card card)
+    {
+        cardRewardSelection.SetActive(false);
+        cardRewardObject.SetActive(false);
+        deck.Add(card.cd);
+    } 
+
+    #endregion
+    
     #region End of game
 
     void GameOver()
