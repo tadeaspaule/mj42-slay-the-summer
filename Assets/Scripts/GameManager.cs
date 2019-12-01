@@ -224,7 +224,7 @@ public class GameManager : MonoBehaviour
         else if (player.health > 0) StartPlayerTurn();
     }
     
-    float space = 2.4f;
+    float space = 2.8f;
 
     public void SpawnEnemies(List<Entity> enemyEntities)
     {
