@@ -27,10 +27,13 @@ public class Character : MonoBehaviour
 
     Sprite[] idleAnim;
     Sprite[] attackAnim;
+    Sprite[] deathAnim;
     Sprite[] currentPlayingAnim;
     int animI;
     float animTimer = 0f;
     float animStep = 0.1f;
+
+    public bool targettable = true;
     
     // Start is called before the first frame update
     void Start()
@@ -63,6 +66,7 @@ public class Character : MonoBehaviour
         Debug.Log(e.name);
         idleAnim = Resources.LoadAll<Sprite>($"animations/{e.name}idle");
         attackAnim = Resources.LoadAll<Sprite>($"animations/{e.name}attack");
+        deathAnim = Resources.LoadAll<Sprite>($"animations/{e.name}death");
         currentPlayingAnim = idleAnim;
         animI = 0;
         animTimer = 0f;
@@ -77,6 +81,17 @@ public class Character : MonoBehaviour
         animTimer = 0f;
         charImage.sprite = currentPlayingAnim[0];
         return attackAnim.Length*animStep;
+    }
+
+    public float PlayDeathAnim()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        if (deathAnim == null) return 0f;
+        currentPlayingAnim = deathAnim;
+        animI = 0;
+        animTimer = 0f;
+        charImage.sprite = currentPlayingAnim[0];
+        return deathAnim.Length*animStep;
     }
 
     #region Mouse Interaction

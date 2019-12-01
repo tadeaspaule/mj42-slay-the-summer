@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
 
     public void EnteredCharacter(Character character)
     {
-        if (usingCard == null) return;
+        if (usingCard == null || !character.targettable) return;
         if (character.e.friendly == usingCard.cd.IsSelfCard()) target = character;
     }
 
@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
         foreach (Transform enemyChar in enemyHolder) {
             Character c = enemyChar.GetComponent<Character>();
             if (c.e.health == 0) {
-                Destroy(enemyChar.gameObject);
+                StartCoroutine(DelayedDeath(c,c.PlayDeathAnim()));
                 map.currentNode.enemies.Remove(c.e);
                 count --;
             }
@@ -155,6 +155,13 @@ public class GameManager : MonoBehaviour
             if (map.currentNode.connections.Count == 0) GameWon();
             else GenerateRewards();
         }
+    }
+
+    IEnumerator DelayedDeath(Character character, float delay)
+    {
+        character.targettable = false;
+        yield return new WaitForSeconds(delay);
+        Destroy(character.gameObject);
     }
 
     void SetupStartDeck()
