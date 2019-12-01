@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     public int cardsDrawn = 0;
 
     public Map map;
+
+    public Character shopkeeper;
     
     #region Unity methods
     
@@ -59,6 +61,9 @@ public class GameManager : MonoBehaviour
         playerChar.gameManager = this;
         playerChar.uImanager = uImanager;
         playerChar.ResetAnimations();
+        shopkeeper.e = new Entity();
+        shopkeeper.e.name = "shopkeeper";
+        shopkeeper.ResetAnimations();
     }
 
     void ResetGame()

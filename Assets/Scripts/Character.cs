@@ -110,11 +110,13 @@ public class Character : MonoBehaviour
 
     void OnMouseEnter()
     {
+        if (!targettable) return;
         gameManager.EnteredCharacter(this);
     }
 
     void OnMouseExit()
     {
+        if (!targettable) return;
         gameManager.LeftCharacter();      
     }
 
