@@ -3,9 +3,9 @@
 public class Entity
 {
     public bool friendly;
-    public int health = 10;
-    public int maxHealth = 10;
-    public string name = "enemy";
+    public int health = 20;
+    public int maxHealth = 20;
+    public string name;
     public int armor = 0;
 
     public int TakeDamage(int amount)

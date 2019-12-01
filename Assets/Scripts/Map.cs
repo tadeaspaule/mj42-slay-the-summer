@@ -23,7 +23,7 @@ public class Map : MonoBehaviour
         int from = 0;
         int lastN = 1;
         for (int i = 0; i < 4; i++) {
-            int n = Random.Range(1,4);
+            int n = Random.Range(2,4);
             List<GameObject> gos = new List<GameObject>();
             for (int ii = 0; ii < n; ii++) gos.Add(Instantiate(mapNodePrefab,Vector3.zero,Quaternion.identity,transform));
             float y = -45 - 205*i + 295f;

@@ -686,6 +686,10 @@ MonoBehaviour:
   moveIndicator: {fileID: 1687312280461555217}
   armorText: {fileID: 3640295922369621136}
   armorHolder: {fileID: 3582660068202052168}
+  nextAttack: 3
+  nextArmor: 3
+  shieldChance: 0
+  targettable: 1
 --- !u!61 &1640353891386175710
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -699,7 +703,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.7777778}
+  m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -710,7 +714,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5555556, y: 3.5555556}
+  m_Size: {x: 1.6, y: 2}
   m_EdgeRadius: 0
 --- !u!1 &9186558060518081831
 GameObject:

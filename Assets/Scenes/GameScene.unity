@@ -3524,7 +3524,7 @@ PrefabInstance:
     - target: {fileID: 5974970423512729402, guid: 987a92533e64821438913f904a1813d6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45
+      value: -140
       objectReference: {fileID: 0}
     - target: {fileID: 5974970423512729402, guid: 987a92533e64821438913f904a1813d6,
         type: 3}
@@ -8704,7 +8704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The Ironclad
+  m_text: The Winter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8773,7 +8773,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1263569520}
-    characterCount: 12
+    characterCount: 10
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -10813,7 +10813,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1622286414
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10852,7 +10852,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c2a0dfcbeabc927488bb7af8a0010f16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a107e733e5dc65c40a8129956319fb1d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         armorGained = 0;
         damageDealt = 0;
         cardsDrawn = 0;
-        gold = 300;
+        gold = 0;
         uImanager.UpdateUI();
     }
 
@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
         playerChar.PlayAttackAnim();
         mana -= usingCard.cd.cost;
         discardPile.Add(usingCard.cd);
+        hand.Remove(usingCard.cd);
         for (int i = 0; i < usingCard.cd.cardDraw; i++) {
             cardHolder.AddCard(DrawRandomCard());
         }
